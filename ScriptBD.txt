@@ -1,0 +1,54 @@
+create database dto_keys;
+
+create table dto_keys.general_keys (
+	idkey int(11) NOT NULL auto_increment,
+    keycontent varchar(29) NOT NULL,
+    serialcontent varchar(30) NOT NULL,
+    keystate int(1) NOT NULL,
+    bancada varchar(2) NOT NULL,
+    disco int(5) not null,
+    memoria int(2) not null,
+    primary key (idkey)
+);
+
+DESCRIBE general_keys;
+
+/*      PROCEDURE GETKEY       */
+
+DROP PROCEDURE getKey;
+
+DELIMITER $$
+CREATE PROCEDURE getKey(IN bancada_lab VARCHAR(2))
+BEGIN
+	DECLARE id INT;
+	SELECT idkey INTO id FROM general_keys WHERE keystate=0 LIMIT 1;
+    UPDATE general_keys SET keystate=1,bancada=bancada_lab WHERE idkey=id;
+    SELECT idkey,keycontent FROM general_keys WHERE idkey=id;
+END $$
+DELIMITER ;
+
+CALL getKey('b5');
+
+/*      PROCEDURE BLOQUEDKEY       */
+
+DROP PROCEDURE bloquedKey;
+
+DELIMITER $$
+CREATE PROCEDURE bloquedKey(IN id INT)
+BEGIN
+	UPDATE general_keys SET keystate=2 WHERE idkey=id;
+END $$
+
+CALL bloquedKey(4);
+
+/*      PROCEDURE ACTIVEDKEY       */
+
+DROP PROCEDURE activedKey;
+
+DELIMITER $$
+CREATE PROCEDURE activedKey(IN id INT, IN serial_content VARCHAR(30), IN disco_pc INT, IN memoria_pc INT)
+BEGIN
+	UPDATE general_keys SET serialcontent=serial_content,keystate=3,disco=disco_pc,memoria=memoria_pc WHERE idkey=id;
+END $$
+
+CALL activedKey(5,'PE09GHTM',256,8);

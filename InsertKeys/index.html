@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="design.css">
+    <title>Inserir Chaves</title>
+</head>
+<body>
+    <div class="container">
+        <div class="contInput">
+            <div class="contInputChave">
+                <input type="text" id="chavesView" class="chavesInput" placeholder="Cole as chaves aqui">
+            </div>
+            <div class="contBtn">
+                <button class="btnGerar" onclick="generateBtn()">Gerar SQL Insert</button>
+            </div>
+        </div>
+        <div class="contOutput">
+            <p id="outputView" class="outputView"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
